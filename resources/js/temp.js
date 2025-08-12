@@ -21,9 +21,9 @@ router.beforeEach(async (to, from, next) => {
     const publicPage = to.meta.public;
     const auth = useAuthStore();
 
-    /*if (!auth.user) {
+    if (!auth.user) {
         await auth.fetchUser();
-    }*/
+    }
 
     if (publicPage) {
         if (auth.isLoggedIn) return next('/'); // redirect logged in from public pages
