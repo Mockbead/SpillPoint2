@@ -1,25 +1,19 @@
-    <template>
-        <div>
-            <h1>{{ title ?? 'NotFound' }}</h1>
-        </div>
-    </template>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useIndexStore } from '../stores/indexStore';
 
-    <script setup>
-    import { ref, onMounted } from 'vue';
-        import axios from '../axios';
+const indexStore = useIndexStore();
 
-    const title = ref('');
+onMounted(() => {
+    indexStore.fetchIndex()
+});
+</script>
 
-    onMounted(async () => {
-        try {
-            const response = await axios.get('/api/index', { withCredentials: true });
-            title.value = response.data.title;
-        } catch (error) {
-            console.error('API error:', error);
-        }
-    });
-    </script>
+<template>
+    <div>
+        <h1>{{ indexStore.title ?? 'NotFound' }}</h1>
+    </div>
+</template>
 
-
-    <style scoped>
-    </style>
+<style scoped>
+</style>
